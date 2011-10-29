@@ -1,0 +1,17 @@
+{
+    "products" :[                
+
+    {
+        "name" : "Karta kredytowa SILVER" , 
+        "id" :11
+    },
+    {
+        "name" : "Karta kredytowa GOLD" , 
+        "id" :12
+    },
+    {
+        "name" : "Karta kredytowa EXCLUSIVE" , 
+        "id" :13
+    }            
+    ]
+}

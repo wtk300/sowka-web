@@ -1,0 +1,34 @@
+<fieldset>
+    <legend><b>Wnioski do poprawy</b></legend>
+    <div>
+
+        <table class="tablesorter" cellspacing="1" cellpadding="0" border="0"> 
+            <thead> 
+                <tr> 
+                    <th>Id</th> 
+                    <th>Nazwa spółki</th> 
+                    <th>Wnioskowana kwota</th>
+                    <th>Data przekazania</th>
+                    <th>Status</th>
+                    <th>Data zm. statusu</th>
+                    <th>Edycja</th>
+
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr ng:repeat="p in correctionNeedProps"> 
+                    <td>{{p.id}}</td> 
+                    <td>{{p.firm}}</td>
+                    <td>{{p.amount}}</td>
+                    <td>{{p.date}}</td>
+                    <td>{{p.status}}</td>
+                    <td>{{p.date}}</td>
+                    <td><a ng:href="#editproposal/{{p.id}}">Edycja</a></td>
+
+                </tr> 
+
+            </tbody> 
+        </table> 
+    </div>
+
+</fieldset>

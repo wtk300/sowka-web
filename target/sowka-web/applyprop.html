@@ -1,0 +1,52 @@
+<fieldset>
+    <legend><b>Lista złożonych wniosków kredytowych</b></legend>
+
+    <div>
+
+        <div ng:init="applyPropStartDate='2011-07-21'">
+            <p><b>od:</b> <input name="applyPropStartDate" ng:required ng:change=" ; count = count + 1" sowka:datepicker/>format: RRRR-MM-DD {{count}}</p>
+        </div>
+        <div>
+            <p><b>do:</b> <input name="applyPropEndDate" sowka:datepicker/></p>
+        </div>
+
+    </div>
+    
+    Hallo {{invalidWidgets.visible}}
+    
+    
+    <button ng:click="fetchApplyProposal()" disabled="{{invalidWidgets.visible() > 0}}">Wyszukaj</button>
+
+
+    <table class="tablesorter" cellspacing="1" cellpadding="0" border="0"> 
+        <thead> 
+            <tr> 
+                <th>Id</th> 
+                <th>Nazwa spółki</th> 
+                <th>Wnioskowana kwota</th>
+                <th>Data przekazania</th>
+                <th>Status</th>
+                <th>Data zm. statusu</th>
+                <th>Uwagi</th>
+                <th>Edycja</th>
+                <th>Wyślij</th>
+
+            </tr> 
+        </thead> 
+        <tbody> 
+            <tr ng:repeat="p in proposals"> 
+                <td>{{p.id}}</td> 
+                <td>{{p.firm}}</td>
+                <td>{{p.amount}}</td>
+                <td>{{p.date}}</td>
+                <td>{{p.status}}</td>
+                <td>{{p.date}}</td>
+                <td>{{p.comment}}</td>
+                <td><a ng:href="#editproposal/{{p.id}}">Edycja</a></td>
+                <td><a ng:href="#sendfile/{{p.id}}">Wyślij</a></td>
+            </tr> 
+
+        </tbody> 
+    </table> 
+</fieldset>
+

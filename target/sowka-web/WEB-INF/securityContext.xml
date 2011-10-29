@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+
+
+    <beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+    <http auto-config="true"  access-denied-page="/accessDenied.jspx">
+
+        <intercept-url pattern="/secured/**" access="ROLE_PROXY,ROLE_ADMIN"/>
+        <form-login
+            login-page="/index.jsp"
+            login-processing-url="/j_spring_security_check"
+
+            />
+
+        <logout invalidate-session="true"  logout-success-url="/logoutSuccess.jspx"/>
+<!--            authentication-success-handler-ref="myAuthSuccessHandler"
+            authentication-failure-handler-ref="myAuthFailureHandler"-->
+<!--        <custom-filter ref="authenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>-->
+        <session-management>
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+
+    </http>
+
+<!--
+           authentication-failure-url="/index.jsp?error=true"/>
+            default-target-url="/secured/welcome.jspx"
+        <concurrent-session-control max-sessions="1" expired-url="/indexsession.jsp" session-registry-alias="sessionRegistry"  />
+        <concurrent-session-control exception-if-maximum-exceeded="true" max-sessions="1"/>
+
+    <http auto-config="true">
+        <intercept-url pattern="/secured/**" access="ROLE_PROXY,ROLE_ADMIN"/>
+    </http>-->
+
+<!--    <http auto-config="true">
+        <intercept-url pattern="/*" access="ROLE_PROXY"/>
+    </http>-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <password-encoder hash="plaintext"/>
+            <user-service >
+                <user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_PROXY" />
+                <user name="user" password="temp" authorities="ROLE_PROXY" />
+                <user name="user2" password="admin" authorities="ROLE_ADMIN" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+<!--    <authentication-manager alias="authenticationManager">
+
+        <authentication-provider>
+        <password-encoder hash="md5" />
+            <user-service id="userService">
+                <user name="admin" password="72964dabd89280e33c6ad9bc8820621d" authorities="ROLE_ADMIN,ROLE_PROXY" />
+                <user name="user" password="temp" authorities="ROLE_PROXY" />
+                <user name="user2" password="admin" authorities="ROLE_ADMIN" />
+            </user-service>
+
+
+
+        <jdbc-user-service data-source-ref="dataSource"
+                           users-by-username-query= "select username , PASSWORD , ENABLED FROM AGENTPERSON where username = ?"
+                           authorities-by-username-query= "select username , authorities  FROM AGENTPERSON where username = ?" />
+        </authentication-provider>
+
+
+    </authentication-manager>-->
+
+
+<!--    <beans:bean id="myAuthSuccessHandler" class="pl.ibpolsoft.netBroker.web.filter.AuthenticationSuccessHandlerFilter">
+        <beans:property name="defaultTargetUrl" value="/secured/main.html"/>
+        <beans:property name="authenticationService" ref="authService"/>
+    </beans:bean>
+
+    <beans:bean id="myAuthFailureHandler" class="pl.ibpolsoft.netBroker.web.filter.AuthenticationFailureHandlerFilter">
+        <beans:property name="defaultFailureUrl" value="/login.jsp?action=failure_login"/>
+
+    </beans:bean>-->
+
+
+
+<!--    <beans:bean id="authenticationProcessingFilter" class="pl.ibpolsoft.debtors.web.filter.MyAuthenticationProcessingFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+        <beans:property name="filterProcessesUrl" value="/j_spring_security_check"/>
+    </beans:bean>-->
+
+    <beans:bean id="authenticationEntryPoint"
+     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/index.jsp"/>
+    </beans:bean>
+
+    <beans:bean id="accessDeniedHandler"
+     class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+        <beans:property name="errorPage" value="/accessDenied.jspx"/>
+    </beans:bean>
+
+    <!--
+    <bean id="jaasAuthenticationProvider"
+          class="org.springframework.security.providers.jaas.JaasAuthenticationProvider">
+        <property name="loginConfig" value="/WEB-INF/login.conf"/>
+        <property name="loginContextName" value="JAASTest"/>
+        <property name="callbackHandlers">
+            <list>
+                <bean class="org.springframework.security.providers.jaas.JaasNameCallbackHandler"/>
+                <bean class="org.springframework.security.providers.jaas.JaasPasswordCallbackHandler"/>
+            </list>
+        </property>
+        <property name="authorityGranters">
+            <list>
+                <bean class="org.springframework.security.providers.jaas.TestAuthorityGranter"/>
+            </list>
+        </property>
+    </bean>
+
+-->
+
+    <beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener" />
+
+    <!--
+    <beans:bean id="channelProcessingFilter" class="org.springframework.security.securechannel.ChannelProcessingFilter">
+        <property name="channelDecisionManager" ref="channelDecisionManager"/>
+        <property name="filterInvocationDefinitionSource">
+            <security:filter-invocation-definition-source path-type="regex">
+                <security:intercept-url pattern="\A/secured/.*\Z" access="REQUIRES_SECURE_CHANNEL"/>
+                <security:intercept-url pattern="\A/j_spring_security_check.*\Z" access="REQUIRES_SECURE_CHANNEL"/>
+                <security:intercept-url pattern="\A/.*\Z" access="ANY_CHANNEL"/>
+            </security:filter-invocation-definition-source>
+        </property>
+    </beans:bean>
+
+
+    <beans:bean id="channelDecisionManager" class="org.springframework.security.securechannel.ChannelDecisionManagerImpl">
+        <property name="channelProcessors">
+            <list>
+                <ref bean="secureChannelProcessor"/>
+                <ref bean="insecureChannelProcessor"/>
+            </list>
+        </property>
+    </beans:bean>
+
+    <beans:bean id="secureChannelProcessor" class="org.springframework.security.securechannel.SecureChannelProcessor"/>
+
+    <beans:bean id="insecureChannelProcessor" class="org.springframework.security.securechannel.InsecureChannelProcessor"/>
+    -->
+    <!--    b) Setup Spring Security to subscribe to http session events in the web context -->
+
+
+
+
+
+</beans:beans>

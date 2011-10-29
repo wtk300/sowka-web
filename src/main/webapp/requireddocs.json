@@ -1,0 +1,24 @@
+{
+    "requireddocs" : [
+    {
+        "name" : "Złożony wniosek" , 
+        "desc": "Dokument składany u Pośrednika"
+    },
+
+    {
+        "name": "Zaświadczenie o wpisie do ewidencji działalności gospodarczej/KRS",
+        "desc": "Dokument składany u Pośrednika"
+    },
+
+    {
+        "name": "Zaświadczenie o nadaniu numeru REGON",
+        "desc": "Dokument składany u Pośrednika"
+    },
+
+    {
+        "name": "Zaświadczenie o nadaniu numeru NIP",
+        "desc": "Dokument składany u Pośrednika"
+    }
+
+    ]
+}

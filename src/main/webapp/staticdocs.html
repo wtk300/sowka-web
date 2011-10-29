@@ -1,0 +1,24 @@
+<fieldset>
+    <legend><b>Statyczne dokumenty</b></legend>
+
+    <div style="padding: 30px">
+
+        Wyszukaj: <input name="searchText"/>
+
+        <table class="tablesorter" cellspacing="1" cellpadding="0" border="0"> 
+            <thead> 
+                <tr> 
+                    <th>Nawa</th>                      
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr ng:repeat="doc in staticDocs.staticDocs.$filter(searchText)"> 
+                    <td>{{doc.name}}</td>                          
+                </tr> 
+
+            </tbody>
+
+        </table>
+    </div>
+</fieldset>
+

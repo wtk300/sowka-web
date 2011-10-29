@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org">
+    <script src="http://code.angularjs.org/angular-0.9.16.min.js" ng:autobind></script>
+    <body>
+        <script>
+            angular.widget('my:time', function(compileElement){
+                compileElement.css('display', 'block');
+                return function(linkElement){
+                    function update(){
+                        linkElement.text('Current time is: ' + new Date());
+                        setTimeout(update, 1000);
+                    }
+                    update();
+                };
+            });
+
+            angular.widget('@sowka:panel',function(desc,compileElement) {
+                var compiler = this;
+                var description = desc;
+
+                return function(element) {
+
+                    element.before("<fieldset> <legend> "+description+"</legend> ");
+                    element.after('<fieldset> ');
+                }
+            });
+
+             angular.widget('sowka:panel',function(desc,compileElement) {
+                var compiler = this;
+                var description = desc;
+
+                return function(element) {
+
+                    
+                }
+            });
+        </script>
+    <my:time></my:time>
+
+    <sowka:panel desc="testowy shit">
+        <table>
+            <tr>
+                <td>Nr wpisu/KRS:</td>
+                <td><input type="text"   ng:validate="integer"></td>
+                <td>Start date:</td>
+
+                <td><input type="text"> </td>
+
+
+            </tr>
+
+        </table>
+    </sowka:panel>
+</body>
+</html>

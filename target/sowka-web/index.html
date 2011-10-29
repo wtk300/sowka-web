@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org/">
+    <head>
+        <meta charset="utf-8">
+        <title>System obsługi wniosków</title>
+        <link rel="stylesheet" href="lib/jQuery/jquery-ui-1.8.14.custom.css"/>
+        <link rel="stylesheet" href="lib/css/main.css"/>
+        <script src="lib/jQuery/jquery-1.5.1.min.js"></script>
+        <link rel="stylesheet" href="lib/css/tablesorter/style.css"/>
+        <link rel="stylesheet" href="lib/css/ui.panel.css"/>
+        <script type="text/javascript" src="lib/tablesorter/jquery.tablesorter.js"></script> 
+        
+        <script src="lib/jQuery/jquery-ui-1.8.12.custom.min.js"></script>
+        <script src="lib/jQuery/jquery.cookie.js"></script>
+        <script src="lib/jQuery/ui.panel.min.js"></script>
+
+        <script src="lib/angular/angular-0.9.19.js" ng:autobind></script>
+
+        <script src="js/services.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/filters.js"></script>
+        <script src="js/widgets.js"></script>
+        <script src="js/validators.js"></script>
+
+    </head>
+    <body ng:controller="MainCtrl">
+
+        Aktualnie zalogowany jako: <b>{{login}}</b> <br/>
+
+        <div id="menu-nav" sowka:accord>
+            <h3><a href="#section1">Kredyty</a></h5>
+                <div>
+
+                    <div ng:repeat="product in creditProducts.products">
+                        <a ng:href="#product/{{product.id}}">{{product.name}}</a>
+                        <br/>
+                    </div>
+
+
+                </div>
+                <h3><a href="#section2">Karty kredytowe</a></h3>
+                <div>
+                    <div ng:repeat="product in creditCardProducts.products">
+                        <a ng:href="#product/{{product.id}}">{{product.name}}</a><br/>
+                    </div>
+                </div>
+                <h3><a href="#section3">Rachunek bieżacy</a></h3>
+                <div>
+                    <div ng:repeat="product in currentAccProducts.products">
+                        <a ng:href="#product/{{product.id}}">{{product.name}}</a><br/>
+                    </div>                   
+                </div>
+
+                <h3><a href="#section4">Wniosek o kredyt</a></h3>
+                <div>
+                    <a href="#addProposal">Nowy wniosek</a> 
+                </div>
+
+
+                <h3><a href="#section5">Inne dokumenty</a></h3>
+                <div>
+                    <a href="#staticdocs">Pokaż dokumenty</a> 
+                </div>
+
+                <h3><a href="#section6">Złożone wnioski</a></h3>
+                <div>
+                    <a href="#applyprop">Kredyty</a> <br/>
+                    <a href="#draftprop">Szkice</a> <br/>
+                    <a href="#forrevision">Wnioski do poprawy</a>
+                </div>
+
+        </div>
+
+        <div id="desktop">
+            <ng:view></ng:view>
+        </div>
+
+
+      
+    </body>
+</html>
+

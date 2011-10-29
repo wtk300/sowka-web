@@ -1,0 +1,508 @@
+
+<div ng:controller="ProposalCtrl">
+
+    <div sowka:maintabs>
+        <ul>
+            <li><a href="#maindatatab"><span>Dane</span></a></li>
+            <li><a href="#proposalcredittab"><span>Wnioski kredyt</span></a></li>                    
+            <li><a href="#contractorstab"><span>Osoby</span></a></li>
+            <li><a href="#firmtab"><span>Firma</span></a></li>
+        </ul>
+
+        <div id ="maindatatab">
+
+            <div ng:show="propId != null"><b>Nr wniosku do edycji: {{propId}}</b><br/></div>
+
+            <fieldset>
+                <legend>Dane wnioskodawcy</legend>
+
+                <table>
+                    <tr>
+                        <td>Nazwa wnioskodawcy: </td>
+                        <td><input type="text" name="proposal.firm.firmname" ng:required/></td>
+                    </tr>
+                    <tr>
+                        <td>NIP wnioskodawcy:</td>
+                        <td><input type="text" name="proposal.firm.nip" ng:validate="nip"/></td>
+                    </tr>
+                    <tr>
+                        <td>REGON:</td>
+                        <td><input type="text" name="proposal.firm.regon"ng:validate="regon"/></td>
+                    </tr>
+                    <tr>
+                        <td>Oddział</td>
+                        <td>
+                            <select name="proposal.branchId" ng:format="number"  ng:options="c.id as c.desc for c in branches.items">
+                                <option value="">Wybierz</option>
+                            </select><br/>
+
+
+
+                        </td>
+                    </tr>
+
+
+                </table>
+
+            </fieldset>
+
+            Ilość błędów {{$invalidWidgets.visible}}
+
+            Lista błedów {{$invalidWidgets.invalidWidgets}}
+
+
+        </div>
+
+        <div id="proposalcredittab">
+
+            <fieldset>
+                <legend>Wnioskujemy o udzielenie:</legend>
+
+                <table>
+                    <tr>
+                        <td>Wybierz rodzaj produktu</td>
+                        <td>
+                            <select name="creditType">
+                                <option value="cash_credit">Kredyt gotówkowy</option>
+                                <option value="credit_card">Karta kredytowa</option>
+                                <option value="credit_currentacc">Kredyt w rachunku bieżacym</option>
+                            </select>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Opłata doradcza</td>
+                        <td><input type="text" name="proposal.credit.brokerFee" ng:format="number" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ubezpieczenie</td>
+                        <td>
+
+                            <select name="proposal.credit.insurance" ng:format="number"  ng:options="c.id as c.desc for c in insurances.items">
+                                <option value="">Wybierz</option>
+                            </select><br/>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <br/>
+
+                <table ng:show="creditType=='cash_credit'">
+                    <tr>
+                        <td>Nazwa</td>
+                        <td>                            
+                            <select name="proposal.credit.product" ng:options="c.id as c.name for c in creditProducts.products">
+                                <option value="">Wybierz</option>
+                            </select><br/>
+
+                        </td>
+                        <td>
+                            w kwocie
+                        </td>
+                        <td>
+                            <input type="text" name="proposal.credit.reqAmount" disabled="true"/>
+                        </td>
+                        <td>
+                            okres kredytowania
+                        </td>
+                        <td>
+                            <select>
+                                <option value="cash_credit">3</option>
+                                <option value="credit_card">6</option>
+                                <option value="credit_currentacc">9</option>
+                                <option value="credit_currentacc">12</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <table ng:show="creditType=='credit_card'">
+                    <tr>
+                        <td>
+                            Nazwa
+                        </td>
+                        <td>                            
+                            <select name="proposal.credit.product" ng:options="c.name for c in creditCardProducts.products">
+                                <option value="">Wybierz</option>
+                            </select><br/>
+                        </td>
+                        <td>z limitem rachunku:</td>
+                        <td><input type="text" name="proposal.credit.reqAmount" disabled="true" width="40px"/></td>
+                        <td>Cykl rozl.<td>
+                        <td>
+                            <div>
+                                <input type="radio" name="group1" value="01"/> 01 
+                                <input type="radio" name="group1" value="10"/> 10
+                                <input type="radio" name="group1" value="20"/> 20
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table ng:show="creditType=='credit_currentacc'">
+                    <tr>
+                        <td>
+                            Nazwa
+                        </td>
+                        <td>
+                            <select>
+                                <option value="cash_credit">Wybierz</option>
+                                <option value="credit_card">KREDYT ODNALWIALNY</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </fieldset>
+
+            <br/>
+
+            <fieldset>
+                <legend> Cel kredytowania</legend>
+
+                <table>
+                    <tr>
+                        <td>Działalność bieżącą:</td>
+                        <td>
+                            <input type="text" name="proposal.credit.reqCurrentActAmount" ng:required ng:format="number" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cele inwestycyjne:</td>
+                        <td>
+                            <input type="text" name="proposal.credit.reqInvestmentAmount" ng:required ng:format="number" />
+                        </td>
+                    </tr>
+
+
+                </table>
+
+            </fieldset>
+
+            <br/>
+
+            <fieldset>
+                <legend>Decyzje</legend>
+
+                <table>
+                    <tr>
+                        <td>Kwota</td>
+                        <td><input type="text" name="proposal.credit.recommendedAmount" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Prowizja</td>
+                        <td><input type="text" name="proposal.credit.originationFee"  ng:validate="integer"> </td>
+                    </tr>
+
+                    <tr>
+                        <td>Liczba rat</td>
+                        <td><input type="text" name="proposal.credit.instalmentNumber"  ng:validate="integer"> </td>
+                    </tr>
+
+                </table>
+
+            </fieldset>
+
+            <br/>
+
+            <fieldset>
+                <legend>Zabezpieczenia</legend>
+
+                <div>
+
+                    <a href="" ng:click="addSuretyAssets()">Dodaj</a>
+
+                    <br/>
+                    <br/>
+
+
+                    <table class="data">
+
+                        <tr>
+                            <th>Zabezpieczenia majątkowe</th>
+                            <th>Określenie zabezpieczenia</th>
+                            <th width="50px">Własność wnioskodawcy</th>
+                            <th width="50px">Własność os. trzecich</th>
+                            <th>Wartość</th>
+                            <th>Usuń</th>
+                        </tr>
+
+                        <tr ng:repeat="surety in proposal.suretyAssets">
+
+
+                            <td>
+                                <select name="surety.type">
+                                    <option>hipoteka</option>
+                                    <option>zastaw</option>
+                                    <option>kaucja</option>
+                                    <option>cesja wierzytelności</option>
+                                </select>
+
+                            </td>
+
+                            <td>
+                                <input type="text" name="surety.collateralDesc" ng:required/>
+                            </td>
+
+                            <td>
+                                <input type="checkbox" name="surety.proposerProperty" ng:disabled="{{surety.otherProperty}}"/>
+                            </td>
+
+                            <td>
+                                <input type="checkbox" name="surety.otherProperty" ng:disabled="{{surety.proposerProperty}}"/>
+                            </td>
+
+                            <td>
+                                <input type="text" name="surety.collateralValue" ng:validate="integer"/>
+                            </td>
+
+                            <td>
+                                [ <a href="" ng:click="proposal.suretyAssets.$remove(surety)">X</a> ]
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </fieldset>
+
+
+
+        </div>
+
+        <div id="contractorstab">
+
+            <div my:tabs="persons">
+                <div class="template">name: {{$e.firstName}} {{$e.lastName}}</div>
+            </div>
+            <div>
+                <button ng:click="addPerson()">[add]</button>   
+            </div>
+
+
+
+            <div ng:repeat="p in persons">
+                Nr {{$index}} Last name:  {{p.lastName}}
+                <button ng:click="removePerson(p)">[x]</button>              
+            </div>
+
+        </div>
+
+        <div id="firmtab">
+
+
+            <fieldset>
+                <legend>Informacje o firmie</legend>
+
+
+
+                <table>
+                    <tr>
+                        <td>Nr wpisu/KRS:</td>
+                        <td><input type="text" name="proposal.firm.krs"  ng:validate="integer"/></td>
+
+                    </tr>
+                    <tr>
+                        <td>Data rozpoczęcia działalności:</td>
+
+
+                        <td><input type="text" name="proposal.firm.startDate" sowka:datepicker/> </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <td>Sprzedawane towary</td>
+                        <td><input type="text" name="proposal.firm.activityDescription" /></td>
+                    </tr>
+                    <tr>
+                        <td>PKD</td>
+
+                        <td><input type="text" name="proposal.firm.activityClass"/> </td>
+
+
+                    </tr>
+
+
+                    <tr>
+                        <td>Liczba osób zatrudnionych na etacie</td>
+                        <td><input type="text" name="proposal.firm.contractWorkers" /></td>
+                    </tr>
+                    <tr>
+                        <td>Liczba osób zatrudnionych nie na etacie</td>
+
+                        <td><input type="text" name="proposal.firm.otherWorkers"/> </td>
+
+
+                    </tr>
+
+                </table>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Adres siedziby</legend>
+                <table>
+                    <tr>
+                        <td>Ul.</td>
+                        <td><input type="text" name="proposal.firm.firmAddress.street"  /></td>
+                        <td>Nr domu</td>
+                        <td><input type="text" name="proposal.firm.firmAddress.house"  /></td>
+                    </tr>
+                    <tr>
+                        <td>Nr miekszkania</td>
+                        <td><input type="text" name="proposal.firm.firmAddress.apt"  /></td>
+                        <td>Kodpocztowy</td>
+                        <td><input type="text" name="proposal.firm.firmAddress.postalCode"  /></td>
+                    </tr>
+                    <tr>
+                        <td>Poczta</td>
+                        <td><input type="text" name="proposal.firm.firmAddress.post"  /></td>
+                        <td>Miejscowość</td>
+                        <td><input type="text" name="proposal.firm.firmAddress.city"  /></td>
+                    </tr>
+                </table>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Adres korespondencyjny</legend>
+
+                <table>
+                    <tr>
+                        <td>Ul.</td>
+                        <td><input type="text" name="proposal.firm.letterAddress.street"  /></td>
+                        <td>Nr domu</td>
+                        <td><input type="text" name="proposal.firm.letterAddress.house"  /></td>
+                    </tr>
+                    <tr>
+                        <td>Nr miekszkania</td>
+                        <td><input type="text" name="proposal.firm.letterAddress.apt"  /></td>
+                        <td>Kod pocztowy</td>
+                        <td><input type="text" name="proposal.firm.letterAddress.postalCode"  /></td>
+                    </tr>
+                    <tr>
+                        <td>Poczta</td>
+                        <td><input type="text" name="proposal.firm.letterAddress.post"  /></td>
+                        <td>Miejscowość</td>
+                        <td><input type="text" name="proposal.firm.letterAddress.city"  /></td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>Dane finansowe</legend>
+
+                <table>
+                    <tr>
+                        <td>Prognozowany przychód w bieżacym roku:</td>
+                        <td><input type="text" name="proposal.firm.forecastRevenueCY"  /></td>
+
+                    </tr>
+                    <tr>
+                        <td>Prognozowany dochód w bieżącym roku:</td>
+                        <td><input type="text" name="proposal.firm.lforecastIncomeCY" /></td>
+                    </tr>
+                    <tr>
+
+                        <td>Płatnik VAT:</td>
+                        <td><input type="checkbox" name="proposal.firm.vat"  /></td>
+                    </tr>
+
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>Inne dane</legend>
+
+                <br/>
+
+                <fieldset>
+                    <legend>Aktywa</legend>
+
+                    <table class="tablesorter" cellspacing="1" cellpadding="0" border="0"> 
+                        <thead> 
+                            <tr>                     
+                                <th  align="center">Nazwa</th> 
+                                <th  align="center">Opis</th> 
+                                <th  align="center">Wartość</th> 
+                                <th  align="center">Obciążenie</th> 
+
+                            </tr> 
+
+                        </thead> 
+                        <tbody> 
+                            <tr> 
+                                <td>Środki trwałe (grunty własne, budynki, inwestycje rozpoczęte)</td> 
+                                <td><input type="text"  /></td>                     
+                                <td><input type="text" /></td>                     
+                                <td><input type="checkbox" /></td>                                
+                            </tr> 
+                            <tr> 
+                                <td>Środki trwałe (maszyny, urządzenia)</td> 
+                                <td><input type="text"  /></td>                     
+                                <td><input type="text" /></td>                     
+                                <td><input type="checkbox" /></td>                                
+                            </tr> 
+                            <tr> 
+                                <td>Środki transportu do 3,5 tony (marka, rocznik i nr rejestracyjny pojazdu)</td> 
+                                <td><input type="text"  /></td>                     
+                                <td><input type="text" /></td>                     
+                                <td><input type="checkbox" /></td>                                
+                            </tr> 
+                            <tr> 
+                                <td>Zapasy w cenach zakupu</td> 
+                                <td><input type="text"  /></td>                     
+                                <td><input type="text" /></td>                     
+                                <td><input type="checkbox" /></td>                                
+                            </tr> 
+
+
+                        </tbody> 
+                    </table>  
+
+
+
+                </fieldset>
+
+                <br/>
+
+                <fieldset>
+                    <legend>Zadłużenie firmy wobec instytucji finansowych</legend>
+                </fieldset>
+            </fieldset>
+
+
+        </div>
+
+
+
+        <hr/>
+
+        <button ng:click="save()" disabled="{{$invalidWidgets.visible() > 0}}">Save</button>
+        Debug View:
+        <pre>Wniosek={{proposal | json}}</pre>      
+
+    </div>
+
+
+    <!--
+    
+            <script src="lib/jQuery/jquery-1.5.1.min.js"></script>
+            <script src="lib/jQuery/jquery-ui-1.8.12.custom.min.js"></script>
+            <script src="lib/angular/angular-0.9.16.js" ng:autobind></script>
+            <script src="js/services.js"></script>
+            <script src="js/controllers.js"></script>
+            <script src="js/filters.js"></script>
+            <script src="js/widgets.js"></script>
+            <script src="js/validators.js"></script>-->
+</div>
+

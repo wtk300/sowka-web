@@ -1,0 +1,28 @@
+{
+    "branchId":2,
+    "credit":{
+        "brokerFee":91,
+        "instalmentNumber":"",
+        "originationFee":"",
+        "product":{
+            "id":12,
+            "name":"Karta kredytowa GOLD"
+        },
+        "recommendedAmount":"",
+        "reqAmount":182,
+        "reqCurrentActAmount":91,
+        "reqInvestmentAmount":91
+    },
+    "firm":{
+        "firmname":"andruszko.net",
+        "nip":"1232131231",
+        "regon":"123213131"
+    },
+    "suretyAssets":[{
+        "collateralDesc":"91",
+        "collateralValue":"91",
+        "otherProperty":false,
+        "proposerProperty":true,
+        "type":"hipoteka"
+    }]
+}

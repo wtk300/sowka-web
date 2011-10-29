@@ -1,0 +1,24 @@
+{
+    "products": [
+    {
+        "name" : "FM Kredyt Multipartner" , 
+        "id" :1
+    },
+    {
+        "name" : "FM Biznes kredyt FM" , 
+        "id" :2
+    },
+    {
+        "name": "Start Up Franczyza" , 
+        "id":3
+    },
+    {
+        "name" : "FM KREDYT ODNAWIALNY" , 
+        "id" :4
+    },
+    {
+        "name" : "Start Up I" , 
+        "id" :5
+    }
+    ]
+}

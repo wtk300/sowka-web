@@ -1,0 +1,320 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org">
+    <head>
+
+
+        <script type="text/javascript"  src="http://code.jquery.com/jquery-1.5.2.js"></script>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/ui-lightness/jquery-ui.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.js"></script>
+        <script src="http://code.angularjs.org/angular-0.9.15.min.js" ng:autobind></script>
+    </head>
+
+    <body>
+
+        <script>
+            function FormController(){
+                this.proposal = {
+                    name: 'Mike Tyson',
+                    address:{line1: '123 Main St.', city:'Anytown', state:'AA', zip:'12345'},
+                    contacts:[{type:'phone', value:'697690165'}]
+                };
+                this.tocheck = 'here you are';
+                this.state = /^\w\w$/;
+                this.zip = /^\d\d\d\d\d$/;
+
+//                this.$watch('tocheck',function(value){
+//                    alert(value);
+//                })
+            }
+
+
+            angular.directive('sowka:tabs', function() {
+                return function(element) {
+                    angular.element('#acco').accordion();
+                    element.tabs('destroy').tabs({ tabTemplate: '<li id="#{label}"><a href="#{href}"><span>#{label}</span></a></li>' });
+                }
+            });
+
+            angular.directive('sowka:accordion', function() {
+                return function(element) {
+                    element.accordion('destroy').accordion();
+                }
+            });
+            
+            angular.directive('sowka:accomani', function() {
+                return function(element) {
+                    angular.element('#mainacco').append(element.children());
+
+                    angular.element('#mainacco').accordion('destroy').accordion();
+                     
+                }
+
+
+            });
+
+
+       
+
+
+
+            angular.widget('my:shit', function(compileElement){
+
+                compileElement.accordion('destroy').accordion();
+                compileElement.css('display', 'block');
+                return function(linkElement){
+                    var currentScope = this;
+//                    currentScope.$watch('proposal.contact[0].value',function(value){
+//                        alert(value)
+//
+//                    });
+
+                };
+            });
+
+            angular.widget('my:accordion', function(compileElement){
+
+                
+                return function(linkElement){
+                  
+                };
+            });
+            
+            angular.widget('@sowka:tabul',function(expression, compiledElement){
+                                
+                return function(element){
+ 
+                    element.addClass('ui-state-default ui-corner-top');
+
+
+                    var no = element.attr('ng:repeat-index');
+                    var label = 'Hallo_'+no;
+                    element.attr('id',label);
+
+
+                    angular.element('#tab').tabs('add','#test'+no,label);
+
+                    element.append(angular.element('#'+label).children());
+
+                    angular.element('#'+label).remove();
+
+                    angular.element('#tab').tabs( 'destroy' ).tabs({ tabTemplate: '<li id="#{label}"><a href="#{href}"><span>#{label}</span></a></li>' });
+
+                
+                    //                    var id = '#ttt'+element.attr('ng:repeat-index');
+                    //                    element.children().attr('href',id);
+                    //element.attr('id','tra'+element.attr('ng:repeat-index'))
+                    
+                    // angular.element('#tab').tabs('add',id,'Hallo');
+                    //element.attr('id,element.attr('ng:repeat-index'));
+                }
+
+            });
+
+
+            angular.directive('sowka:tabperson', function(expression) {
+                
+                //                for (var i = angular.element('#tab').tabs('length') - 1; i >= 0; i--) {
+                //                    angular.element('#tab').tabs('remove', i);
+                //                }
+                //angular.element('#tab').tabs("remove", 0);
+                //angular.element('#tab').tabs('remove', 1);
+                
+                //angular.element('#tab').tabs('add','#tt','Person_');
+                
+                var exp = expression;
+
+              
+                return function(element) {
+
+                    var id = '#'+exp+element.attr('ng:repeat-index');
+                    var id_ = exp+element.attr('ng:repeat-index');
+                   
+                    element.attr('id',id_);
+
+
+
+                   
+                    
+                    // angular.element('#tab').tabs('add',id,'Osoba_'+element.attr('ng:repeat-index'));
+                    
+                    //angular.element(id).append(element)                                        
+                    //element.append(angular.element(id));                                     
+                    //element.attr('id',)
+                    
+                    //element.append(angular.element(id).append(element.children()));
+                                                            
+                    //element.after('<div id="'+id_+'">  </div>');
+                    //angular.element(id).append(element.children());
+                    
+                    //angular.element(id).append(child);
+                    
+                    //divParent.attr('id','ttt'+element.attr('ng:repeat-index'));
+                    
+                    //element.append(divParent.append());
+                    
+                    //element.children().attr('id',id_);
+                    //element.children().attr('class','ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide');
+                    
+                    //angular.element('#ula').append('<li class="ui-state-default ui-corner-top"><a href="'+id+'"><span>Osoba</span></a></li>')
+                    
+                    
+                    //element.append(angular.element(id));
+                    //angular.element(id).append(element);
+                       
+                }
+            });
+
+            angular.widget('@my:tabs', function(expression, compileElement) {
+                var compiler = this;
+                compileElement.append("<ul></ul>");
+                compileElement.tabs();
+                return function(linkElement) {
+                    var currentScope = this;
+                    currentScope.$watch(expression, function(value){
+                        alert('ahsdf')
+                    });
+                };
+            });
+        </script>
+
+
+
+        <div ng:controller="FormController" style="width: 900px">
+
+
+
+            <div sowka:tabs>
+                <ul>
+                    <li><a href="#fragment-1"><span>Dane</span></a></li>
+                    <li><a href="#fragment-2"><span>Wnioski kredyt</span></a></li>
+                    <li><a href="#fragment-3"><span>Wnioski RB</span></a></li>
+                </ul>
+                <div id="fragment-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                    <label>Name:</label><br/>
+                    <input type="text" name="proposal.name" ng:required/> <br/><br/>
+
+                    <label>Address:</label><br/>
+                    <input type="text" name="proposal.address.line1" size="33" ng:required/> <br/>
+                    <input type="text" name="proposal.address.city" size="12" ng:required/>,
+                    <input type="text" name="proposal.address.state" size="2" ng:required ng:validate="regexp:state"/>
+                    <input type="text" name="proposal.address.zip" size="5" ng:required ng:validate="regexp:zip"/><br/><br/>
+                    <input type="text" name="proposal.collateral.name" size="5"/><br/><br/>
+
+
+                    <input type="text" name="tocheck" size="15"/><br/><br/>
+
+
+
+                    <label>Phone:</label>
+                    [ <a href="" ng:click="proposal.contacts.$add()">add</a> ]
+                    <div ng:repeat="contact in proposal.contacts">
+                        <select name="contact.type">
+                            <option>email</option>
+                            <option>phone</option>
+                            <option>pager</option>
+                            <option>IM</option>
+                        </select>
+                        <input type="text" name="contact.value" ng:required/>
+                        [ <a href="" ng:click="proposal.contacts.$remove(contact)">X</a> ]
+                    </div>
+
+                    <hr/>
+                    Debug View:
+                    <pre>Wniosek={{proposal}}</pre>
+                </div>
+                <div id="fragment-2" >
+
+                    <div>
+
+                        <div id="acco" >
+                            <h3><a href="#aa">Section 1</a></h3>
+                            <div id ="sec1">
+                                <p>
+                                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                                    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                                    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                </p>
+                            </div>
+                            <h3><a href="#">Section 2</a></h3>
+                            <div>
+                                <p>
+                                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                                    suscipit faucibus urna.
+                                </p>
+                            </div>
+                            <h3><a href="#">Section 3</a></h3>
+                            <div>
+                                <p>
+                                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+                                </p>
+                                <ul>
+                                    <li>List item one</li>
+                                    <li>List item two</li>
+                                    <li>List item three</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div id="fragment-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+
+
+                    <div id="tab" sowka:tabs>
+
+                        <ul id="ula">
+
+                            <li><a href="#ttt"><span>Dane</span></a></li>
+
+                            <li><a href="#tt1"><span>Dane1</span></a></li>
+
+
+                            <li ng:repeat="contact in proposal.contacts"  sowka:tabul >
+
+                            </li>
+
+
+                        </ul>
+
+                        <div id="tt1">
+                            Debug View 1:
+                        </div>
+
+
+                        <div id="ttt">                        
+                            Debug View 2:
+                        </div>
+
+                        <div id="test1">
+                            Test 1
+                        </div>
+
+                        <div id="test0">
+                            Test 0
+                        </div>
+
+                        <div id="test2">
+                            Test 2
+                        </div>
+
+
+
+                        <div ng:repeat="contact in proposal.contacts" sowka:tabperson="ttt" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                            <div>
+                                <input type="text" name="contact.value" ng:required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

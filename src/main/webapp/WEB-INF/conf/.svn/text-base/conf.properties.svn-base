@@ -1,0 +1,6 @@
+pl.ibpolsoft.sow.web.dao.jndi=jdbc/sow
+
+pl.ibpolsoft.sow.web.dao.jdbc.url=jdbc:derby://localhost:1527/sow_derby
+pl.ibpolsoft.sow.web.dao.jdbc.driverClassName=org.apache.derby.jdbc.ClientDriver
+pl.ibpolsoft.sow.web.dao.jdbc.username=sow
+pl.ibpolsoft.sow.web.dao.jdbc.password=123456

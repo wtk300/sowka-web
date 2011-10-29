@@ -1,0 +1,60 @@
+root {
+    display: block;
+}
+
+#menu-nav {
+    float: left;
+    width: 300px
+  
+}
+
+#desktop {
+    float: left;
+    padding-left: 20px;
+    width: 900px
+  
+}
+
+table td.id, table th.id {
+    display: none;
+}
+
+table.data {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+table.data th {
+	border: 1px solid gray;
+	border-bottom: 2px solid green;
+	padding: 7px;
+}
+
+table.data td {
+	border: 1px solid gray;
+	padding: 7px;
+}
+
+/*table.data tbody tr:hover{
+    background-color: orange;
+}*/
+
+div.border_file_vehicle {
+    border: 1px solid black;
+    padding: 1em;
+    margin: 1em;
+    width: 350px;
+}
+/*
+#menu-nav {
+    float: left;
+    border: gray solid;
+    padding-right: 2em;
+}
+
+#desktop {
+    float: left;
+    border: gray solid;
+    padding: 2em;
+}*/
+

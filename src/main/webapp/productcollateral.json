@@ -1,0 +1,15 @@
+{
+    "collateralList":[{
+        "fromAmount":"5000",
+        "toAmount":"10000",
+        "collateralName":"Zgoda małżonka",
+        "bankComment":"brak",
+        "clientStatus":"nowy"
+    },{
+        "fromAmount":"5000",
+        "toAmount":"10000",
+        "collateralName":"Zgoda małżonka",
+        "bankComment":"brak",
+        "clientStatus":"nowy"
+    }]
+    }

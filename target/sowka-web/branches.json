@@ -1,0 +1,12 @@
+{
+    "items":[{
+        "id":"1",
+        "desc":"Witnica"
+    },{
+        "id":"11",
+        "desc":"Poznań"
+    },{
+        "id":"111",
+        "desc":"Moskwa"
+    }]
+    }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+
+    <bean id="placeholder-conf-jdbc" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <value>/WEB-INF/conf/conf.properties</value>
+        </property>
+    </bean>
+
+<!--    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>${pl.ibpolsoft.debtors.jndi}</value>
+        </property>
+    </bean>-->
+
+<!--    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>-->
+
+<!--    <bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
+        <property name="userPropertyToUse" value="salt"/>
+    </bean>-->
+
+<!--    <bean id="jdbcUserServiceCustom" class="com.packtpub.springsecurity.security.CustomJdbcDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="enableGroups" value="true"/>
+        <property name="enableAuthorities" value="false"/>
+		 Ch 4 Salted User Exercise
+        <property name="usersByUsernameQuery">
+            <value>select username,password,enabled,salt from users where username = ?</value>
+        </property>
+
+    </bean>-->
+
+
+
+
+<!--   <bean id="activeProductBean"
+         class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+       <property name="jndiName" value="java:comp/env/active"/>
+
+       <property name="businessInterface" value="pl.ibpolsoft.sow.web.ActiveProductService"/>
+   </bean>-->
+<!--
+
+
+   <bean id="treeCreator" class="pl.ibpolsoft.sow.web.bean.TreeCreator">
+        <property name="configDao">
+            <ref bean="configDao"/>
+        </property>
+   </bean>
+
+   <bean id="configDao" class="pl.ibpolsoft.sow.web.dao.ConfigDaoImpl">
+       <property name="activeProduct">
+           <ref bean="activeProductBean"/>
+       </property>
+   </bean>
+
+
+   <bean id="sim" class="pl.ibpolsoft.sow.web.calc.IDGSimulator">
+       <property name="configDao">
+          <ref bean="configDao"/>
+       </property>
+   </bean>
+-->
+</beans>

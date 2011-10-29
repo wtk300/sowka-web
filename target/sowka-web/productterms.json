@@ -1,0 +1,46 @@
+{
+    "name":"Naza produktu",
+    "desc":"Product desc",
+    "minPaymentPeriod":"20",
+    "minAmount":"1000",
+    "productCreditInsuranceList":[{
+        "fromAmount":"0",
+        "toAmount":"10",
+        "insuranceRequirement":"Brak"
+    },{
+        "fromAmount":"0",
+        "toAmount":"10",
+        "insuranceRequirement":"Brak"
+    }],
+    "productCreditInterestList":[{
+        "interestRate":"10.0",
+        "interestType" : "stałe",        
+        "referenceRate":"WIBOR 3M",
+        "description":"turbo decs",
+        "clientStatus":"nowy",
+        "fromAmount":"0",
+        "toAmount":"10"
+    },{
+        "interestRate":"10.0",
+        "interestType": "zmienne",
+        "referenceRate":"WIBOR 3M",
+        "description":"turbo decs",
+        "clientStatus":"nowy",
+        "fromAmount":"0",
+        "toAmount":"10"
+    }],
+    "productCreditMaxAmountList":[{
+        "fromActivityPeriod":"12",
+        "toActivityPeriod":"24",
+        "maxAmount":"30000"
+    },{
+        "fromActivityPeriod":"24",
+        "toActivityPeriod":"64",
+        "maxAmount":"80000"
+    }],
+    "productCreditMaxPaybackPeriodList":[{
+        "fromAmount":"1000",
+        "toAmount":"7000",
+        "maxPaybackPeriod":"24"
+    }]
+}
